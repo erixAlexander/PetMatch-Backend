@@ -11,9 +11,11 @@ const PORT = process.env.PORT || 8000;
 
 connectDB();
 const app = express();
-console.log('test')
 app.use(express.urlencoded({ extended: false }));
 app.use(credentials);
+app.get("/", (req, res) => {
+  console.log(req);
+});
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());

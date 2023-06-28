@@ -99,6 +99,7 @@ const handleNativeAppLogin = async (req, res) => {
       existingUser.refreshToken = refreshToken;
       await existingUser.save();
       console.log(token);
+      console.log(existingUser);
       res
         .status(201)
         .json({ token, userId: existingUser.user_id, jwt: refreshToken });

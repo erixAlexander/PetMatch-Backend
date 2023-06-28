@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/User");
 
 const handleLogin = async (req, res) => {
+  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password)
     return res
@@ -48,6 +49,7 @@ const handleLogin = async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000,
       });
       res.status(201).json({ token, userId: existingUser.user_id });
+      console.log(token);
       return;
     }
     if (!correctPassword) res.status(409).send("The password is incorrect.");

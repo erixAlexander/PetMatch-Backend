@@ -21,7 +21,6 @@ const handleDeleteImages = async (req, res) => {
         },
       }
     );
-    console.log(response);
     res.status(201).json({ response });
   } catch (err) {
     console.log(err);
@@ -35,7 +34,6 @@ const handleUpdateImages = async (req, res) => {
   if (!user_id || !image) {
     return res.status(400).json({ message: "This parameter is required." });
   }
-
   try {
     const client = new MongoClient(URI);
     await client.connect();
@@ -49,8 +47,7 @@ const handleUpdateImages = async (req, res) => {
         },
       }
     );
-    console.log(response);
-    res.status(201).json({ response });
+    res.status(201).json({ response, image });
   } catch (err) {
     console.log(err);
   }
@@ -58,12 +55,10 @@ const handleUpdateImages = async (req, res) => {
 
 const handleAddImages = async (req, res) => {
   const user_id = req?.body?.params?.user_id;
-  const id = req.body?.params?.id;
   const image = req?.cloudinaryImage;
   if (!user_id || !image) {
     return res.status(400).json({ message: "This parameter is required." });
   }
-
   try {
     const client = new MongoClient(URI);
     await client.connect();
@@ -77,8 +72,7 @@ const handleAddImages = async (req, res) => {
         },
       }
     );
-    console.log(response);
-    res.status(201).json({ response });
+    res.status(201).json({ response, image });
   } catch (err) {
     console.log(err);
   }

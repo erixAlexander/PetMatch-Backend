@@ -32,7 +32,7 @@ const updateUserInfo = async (req, res) => {
       activity: formData.activity,
     };
     const updatedUser = await onboarding
-      .findOneAndUpdate(query, updateDocument)
+      .findOneAndUpdate(query, updateDocument, { new: true })
       .exec();
     res.status(200).send(updatedUser);
   } catch (err) {
@@ -53,7 +53,9 @@ const getUserInfo = async (req, res) => {
     if (reqUser !== user?.email) {
       return res.status(403).json({ message: "User parameter is wrong." });
     }
-    res.status(200).send(user);
+
+    const { hashed_password, ...sanitizedUser } = user._doc;
+    res.status(200).send(sanitizedUser);
   } catch (err) {
     console.log(err);
   }

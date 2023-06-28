@@ -12,11 +12,7 @@ const handleReadMessage = async (req, res) => {
     const users = database.collection("users");
     const user_id = req.body.userId;
     const match_id = req.body.match_id;
-    // const user = await users.findOne({ user_id });
 
-    // if (req?.user !== user?.email) {
-    //   return res.status(403).json({ message: "User parameter is wrong." });
-    // }
     users.updateOne(
       { user_id, "user_matches.user_id": match_id },
       {
@@ -25,6 +21,8 @@ const handleReadMessage = async (req, res) => {
         },
       }
     );
+
+    res.status(200).send("Message Read");
   } catch (err) {
     console.log(err);
   }

@@ -1,7 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const messagesController = require('../../controllers/messagesController');
+const messagesController = require("../../controllers/messagesController");
 
-router.get('/', messagesController.handleMessages);
+router.get("/", messagesController.handleMessages);
+router.get("/native", messagesController.handleNativeMessages);
 
 module.exports = router;

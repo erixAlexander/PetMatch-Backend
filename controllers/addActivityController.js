@@ -39,7 +39,24 @@ const handleGetActivityUsers = async (req, res) => {
     const users = database.collection("users");
     const regex = new RegExp(`^${userId}$`);
     const response = await users
-      .find({ activity: activity, user_id: { $not: regex } })
+      .find(
+        { activity: activity, user_id: { $not: regex } },
+        {
+          email: 1,
+          images: 1,
+          pet_name: 1,
+          user_id: 1,
+          about: 1,
+          activity: 1,
+          address_info: 1,
+          dob_year: 1,
+          distance: 1,
+          gender_identity: 1,
+          looking_for: 1,
+          pedigree: 1,
+          user_matches: 1,
+        }
+      )
       .toArray();
 
     res.status(201).json(response);

@@ -8,6 +8,14 @@ const lookingFor = mongoose.Schema({
   give_for_adoption: Boolean,
 });
 
+const addresInfo = mongoose.Schema({
+  country: String,
+  name: String,
+  lat: Number,
+  lon: Number,
+  full_name: String,
+});
+
 const Profile = new Schema({
   email: {
     type: String,
@@ -49,6 +57,12 @@ const Profile = new Schema({
   },
   refreshToken: {
     type: String,
+  },
+  distance: {
+    type: Number,
+  },
+  address_info: {
+    type: addresInfo,
   },
 });
 

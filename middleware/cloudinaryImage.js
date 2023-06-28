@@ -1,7 +1,6 @@
 const { cloudinary } = require("../utils/cloudinary");
 
 const cloudinaryImage = async (req, res, next) => {
-  console.log("doing something");
   try {
     const fileStr = req.body.params?.image;
     if (!fileStr) {
@@ -17,7 +16,6 @@ const cloudinaryImage = async (req, res, next) => {
     });
     let cloudImage = { id: result.public_id, url: result.url };
 
-    console.log(cloudImage);
     req.cloudinaryImage = cloudImage;
     next();
   } catch (err) {

@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(credentials);
-app.use("/login", (req, res) => {
+app.post("/login", (req, res) => {
   console.log(req);
 });
 app.use(cors(corsOptions));

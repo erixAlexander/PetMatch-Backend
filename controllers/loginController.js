@@ -3,13 +3,13 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/User");
 
 const handleLogin = async (req, res) => {
-  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password)
     return res
       .status(400)
       .json({ message: "Username and password are required." });
 
+  console.log(req.body);
   try {
     const sanitizedEmail = email.toLowerCase();
     const existingUser = await User.findOne({ email: sanitizedEmail }).exec();

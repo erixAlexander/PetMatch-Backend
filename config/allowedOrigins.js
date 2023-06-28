@@ -7,6 +7,7 @@ const allowedOrigins = [
   "http://localhost:19006",
   "http://192.168.3.106:19000",
   "https://petmatchlove.netlify.app",
+  "190.103.30.58",
 ];
 
 module.exports = allowedOrigins;

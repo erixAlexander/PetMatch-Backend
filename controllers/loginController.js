@@ -100,9 +100,7 @@ const handleNativeAppLogin = async (req, res) => {
       await existingUser.save();
       console.log(token);
       console.log(existingUser);
-      res
-        .status(201)
-        .json({ token, userId: existingUser.user_id, jwt: refreshToken });
+      res.status(201).json({ token, user: existingUser, jwt: refreshToken });
       return;
     }
     if (!correctPassword) res.status(409).send("The password is incorrect.");

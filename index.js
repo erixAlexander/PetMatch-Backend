@@ -13,9 +13,6 @@ connectDB();
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(credentials);
-app.post("/login", (req, res) => {
-  console.log(req);
-});
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 app.use(cookieParser());

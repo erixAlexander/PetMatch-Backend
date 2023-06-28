@@ -9,7 +9,6 @@ const handleLogin = async (req, res) => {
       .status(400)
       .json({ message: "Username and password are required." });
 
-  console.log(req.body);
   try {
     const sanitizedEmail = email.toLowerCase();
     const existingUser = await User.findOne({ email: sanitizedEmail }).exec();
@@ -49,7 +48,7 @@ const handleLogin = async (req, res) => {
         maxAge: 24 * 60 * 60 * 1000,
       });
       res.status(201).json({ token, userId: existingUser.user_id });
-      console.log(token);
+
       return;
     }
     if (!correctPassword) res.status(409).send("The password is incorrect.");
@@ -61,6 +60,7 @@ const handleLogin = async (req, res) => {
 };
 
 const handleNativeAppLogin = async (req, res) => {
+  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password)
     return res
@@ -98,7 +98,7 @@ const handleNativeAppLogin = async (req, res) => {
 
       existingUser.refreshToken = refreshToken;
       await existingUser.save();
-
+      console.log(token);
       res
         .status(201)
         .json({ token, userId: existingUser.user_id, jwt: refreshToken });

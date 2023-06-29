@@ -55,7 +55,6 @@ const getUserInfo = async (req, res) => {
     }
 
     const { hashed_password, ...sanitizedUser } = user._doc;
-    console.log("🚀 ~ file: userController.js:58 ~ getUserInfo ~ sanitizedUser:", sanitizedUser)
     res.status(200).send(sanitizedUser);
   } catch (err) {
     console.log(err);

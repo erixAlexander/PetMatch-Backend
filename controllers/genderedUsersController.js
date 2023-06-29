@@ -5,6 +5,7 @@ const handleGenderedUsers = async (req, res) => {
     return res.status(400).json({ message: "Missing gender or type." });
   }
   const gender = req.query.gender;
+  console.log("🚀 ~ file: genderedUsersController.js:8 ~ handleGenderedUsers ~ gender:", gender)
   const type = req.query.type;
   const id = req.query.userId;
   let query = {};
@@ -43,6 +44,7 @@ const handleGenderedUsers = async (req, res) => {
     ]);
 
     res.json(returnedUsers);
+    console.log("🚀 ~ file: genderedUsersController.js:47 ~ handleGenderedUsers ~ returnedUsers:", returnedUsers)
   } catch (err) {
     console.log(err);
   }

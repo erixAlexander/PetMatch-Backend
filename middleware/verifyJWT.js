@@ -8,8 +8,9 @@ const verifyJWT = (req, res, next) => {
 
   jwt.verify(token, process.env.ACCESS_TOKEN, (err, decoded) => {
     if (err) return res.sendStatus(403);
-    console.log(decoded.UserInfo)
-    req.user = decoded.UserInfo.email;
+    decoded.UserInfo?.username
+      ? (req.user = decoded.UserInfo.username)
+      : (req.user = decoded.UserInfo.email);
     next();
   });
 };

@@ -42,7 +42,6 @@ const updateUserInfo = async (req, res) => {
 
 const getUserInfo = async (req, res) => {
   const reqUser = req.user;
-  console.log("🚀 ~ file: userController.js:45 ~ getUserInfo ~ reqUser:", reqUser)
   const userId = req.query.userId;
   if (!userId) {
     return res.status(400).json({ message: "ID parameter is required." });
@@ -56,6 +55,7 @@ const getUserInfo = async (req, res) => {
     }
 
     const { hashed_password, ...sanitizedUser } = user._doc;
+    console.log("🚀 ~ file: userController.js:58 ~ getUserInfo ~ sanitizedUser:", sanitizedUser)
     res.status(200).send(sanitizedUser);
   } catch (err) {
     console.log(err);

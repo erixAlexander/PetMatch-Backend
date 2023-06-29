@@ -11,8 +11,8 @@ const verifyJWT = (req, res, next) => {
         process.env.ACCESS_TOKEN,
         (err, decoded) => {
             if (err) return res.sendStatus(403); 
+            console.log(decoded.UserInfo)
             req.user = decoded.UserInfo.username;
-            console.log(req.user)
             next();
         }
     );

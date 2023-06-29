@@ -60,7 +60,6 @@ const handleLogin = async (req, res) => {
 };
 
 const handleNativeAppLogin = async (req, res) => {
-  console.log(req.body);
   const { email, password } = req.body;
   if (!email || !password)
     return res

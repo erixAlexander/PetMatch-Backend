@@ -98,6 +98,14 @@ const handleNativeAppLogin = async (req, res) => {
 
       existingUser.refreshToken = refreshToken;
       await existingUser.save();
+      console.log(
+        "🚀 ~ file: loginController.js:101 ~ handleNativeAppLogin ~ existingUser:",
+        existingUser.user_id
+      );
+      console.log(
+        "🚀 ~ file: loginController.js:101 ~ handleNativeAppLogin ~ existingUser:",
+        typeof existingUser.user_id
+      );
       res
         .status(201)
         .json({ token, userId: existingUser.user_id, jwt: refreshToken });

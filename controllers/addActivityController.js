@@ -2,7 +2,6 @@ const { MongoClient } = require("mongodb");
 const URI = process.env.URI;
 
 const handleAddActivity = async (req, res) => {
-  console.log(req.body);
   const { userId, activity } = req?.body?.params;
 
   if (!userId) {
@@ -28,7 +27,6 @@ const handleAddActivity = async (req, res) => {
 };
 
 const handleGetActivityUsers = async (req, res) => {
-  console.log(req.query);
   const { userId, activity } = req?.query;
   if (!activity) {
     return res.status(400).json({ message: "This parameter is required." });

@@ -20,7 +20,6 @@ const profileUpdate = async (req, res) => {
       formData.hashed_password = await bcrypt.hash(formData?.password, 10);
       delete formData.password;
     }
-    console.log(formData);
 
     const updateDocument = formData;
     const updatedUser = await Profile.findOneAndUpdate(

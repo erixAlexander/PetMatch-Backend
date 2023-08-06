@@ -9,5 +9,5 @@ const allowedOrigins = [
   "https://petmatchlove.netlify.app",
   "190.103.30.58",
 ];
-
+//includes React and React native
 module.exports = allowedOrigins;

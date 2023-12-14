@@ -37,19 +37,13 @@ const handleGenderedUsers = async (req, res) => {
         const response = await fetch(
           `https://api.tomtom.com/routing/1/calculateRoute/${userlat}%2C${userlon}%3A${matchlat}%2C${matchlon}/json?key=${process.env.TOMTOM_API_KEY}`
         );
-        const text = await response.text();
-        // const json = await response.json();
-        console.log(
-          "🚀 ~ file: genderedUsersController.js:46 ~ checkDistance ~ TEXT:",
-          text
-        );
-        console.log(
-          "🚀 ~ file: genderedUsersController.js:46 ~ checkDistance ~ JSON:",
-          json
-        );
-        const distanceInKm = s;
-        response.data.routes[0].summary.lengthInMeters / 1000;
-        return { inDistance: distanceInKm < user.distance, distanceInKm };
+        const data = await response.text();
+
+        const distanceInKm = data.routes[0].summary.lengthInMeters / 1000;
+        return {
+          inDistance: distanceInKm < user.distance,
+          distanceInKm: distanceInKm,
+        };
       } catch (error) {
         console.log(error);
       }

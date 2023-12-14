@@ -1,25 +1,20 @@
 const Onboarding = require("../model/Onboarding");
 
 const handleGenderedUsers = async (req, res) => {
-  const { gender, type, userId } = req.query;
+  const { gender, type, userId, address } = req.query;
 
-  if (!gender || !type || !userId) {
-    return res
-      .status(400)
-      .json({ message: "Missing a mandatory parameter: gender, type or id." });
+  if (!gender || !type || !userId || !address) {
+    return res.status(400).json({
+      message: "Missing a mandatory parameter: gender, type, address or id.",
+    });
   }
-  let query = {};
+  let query = { type_of_pet: type, user_id: { $ne: userId } };
 
   try {
-    if (gender === "any") {
-      query = { type_of_pet: type, user_id: { $ne: userId } };
-    } else {
-      query = {
-        gender_identity: gender,
-        type_of_pet: type,
-        user_id: { $ne: userId },
-      };
+    if (gender !== "any") {
+      query.gender_identity = gender;
     }
+    console.log(address);
 
     const returnedUsers = await Onboarding.find(query).select([
       "email",

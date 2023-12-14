@@ -1,12 +1,12 @@
 const Onboarding = require("../model/Onboarding");
 
 const handleGenderedUsers = async (req, res) => {
-  if (!req?.query?.gender || !req?.query?.type) {
-    return res.status(400).json({ message: "Missing gender or type." });
+  if (!req?.query?.gender || !req?.query?.type || !req?.query?.id) {
+    return res
+      .status(400)
+      .json({ message: "Missing a mandatory parameter: gender, type or id." });
   }
-  const gender = req.query.gender;
-  const type = req.query.type;
-  const id = req.query.userId;
+  const { gender, type, id } = req.query;
   let query = {};
 
   try {
@@ -42,6 +42,10 @@ const handleGenderedUsers = async (req, res) => {
       "user_matches",
     ]);
 
+    console.log(
+      "🚀 ~ file: genderedUsersController.js:46 ~ handleGenderedUsers ~ returnedUsers:",
+      returnedUsers
+    );
     res.json(returnedUsers);
   } catch (err) {
     console.log(err);

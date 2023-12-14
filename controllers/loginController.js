@@ -51,6 +51,7 @@ const handleLogin = async (req, res) => {
 
       return;
     }
+
     if (!correctPassword) res.status(409).send("The password is incorrect.");
 
     res.status(400).send("Something went wrong.");

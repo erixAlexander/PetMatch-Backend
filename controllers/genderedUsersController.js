@@ -5,7 +5,7 @@ const handleGenderedUsers = async (req, res) => {
     "🚀 ~ file: genderedUsersController.js:15 ~ handleGenderedUsers ~ req.query",
     req.query
   );
-  if (!req?.query?.gender || !req?.query?.type || !req?.query?.id) {
+  if (!req?.query?.gender || !req?.query?.type || !req?.query?.userId) {
     return res
       .status(400)
       .json({ message: "Missing a mandatory parameter: gender, type or id." });

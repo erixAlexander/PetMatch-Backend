@@ -38,7 +38,7 @@ const handleGenderedUsers = async (req, res) => {
           `https://api.tomtom.com/routing/1/calculateRoute/${userlat}%2C${userlon}%3A${matchlat}%2C${matchlon}/json?key=${process.env.TOMTOM_API_KEY}`
         );
         const text = await response.text();
-        const json = await response.json();
+        // const json = await response.json();
         console.log(
           "🚀 ~ file: genderedUsersController.js:46 ~ checkDistance ~ TEXT:",
           text

@@ -41,7 +41,7 @@ const handleGenderedUsers = async (req, res) => {
       try {
         if (!matchlat || !matchlon) return false;
         const response = await fetch.get(
-          `https://api.tomtom.com/routing/1/calculateRoute/${userlat}%2C${userlon}%3A${matchlat}%2C${matchlon}/json?key=${TOMTOM_API_KEY}`
+          `https://api.tomtom.com/routing/1/calculateRoute/${userlat}%2C${userlon}%3A${matchlat}%2C${matchlon}/json?key=${process.env.TOMTOM_API_KEY}`
         );
         const distanceInKm = s;
         response.data.routes[0].summary.lengthInMeters / 1000;

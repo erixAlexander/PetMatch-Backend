@@ -14,7 +14,6 @@ const handleGenderedUsers = async (req, res) => {
     if (gender !== "any") {
       query.gender_identity = gender;
     }
-    console.log(address);
 
     const returnedUsers = await Onboarding.find(query).select([
       "email",
@@ -32,28 +31,21 @@ const handleGenderedUsers = async (req, res) => {
       "user_matches",
     ]);
 
-    console.log(
-      "🚀 ~ file: genderedUsersController.js:46 ~ handleGenderedUsers ~ returnedUsers:",
-      returnedUsers
-    );
-
     const checkDistance = async (userlat, userlon, matchlat, matchlon) => {
       try {
         if (!matchlat || !matchlon) return false;
         const response = await fetch(
           `https://api.tomtom.com/routing/1/calculateRoute/${userlat}%2C${userlon}%3A${matchlat}%2C${matchlon}/json?key=${process.env.TOMTOM_API_KEY}`
         );
-        console.log(
-          "🚀 ~ file: genderedUsersController.js:46 ~ checkDistance ~ response:",
-          response
-        );
+        const text = await response.text();
+        const json = await response.json();
         console.log(
           "🚀 ~ file: genderedUsersController.js:46 ~ checkDistance ~ TEXT:",
-          response.text()
+          text
         );
         console.log(
           "🚀 ~ file: genderedUsersController.js:46 ~ checkDistance ~ JSON:",
-          response.json()
+          json
         );
         const distanceInKm = s;
         response.data.routes[0].summary.lengthInMeters / 1000;

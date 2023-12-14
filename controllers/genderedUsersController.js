@@ -21,7 +21,7 @@ const handleGenderedUsers = async (req, res) => {
       };
     }
 
-    const returnedUsers = await Onboarding.find({ query }).select([
+    const returnedUsers = await Onboarding.find(query).select([
       "email",
       "images",
       "pet_name",

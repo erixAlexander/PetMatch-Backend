@@ -1,9 +1,8 @@
 const { MongoClient } = require("mongodb");
 const URI = process.env.URI;
-const ReadMessageSchema = require("../model/ReadMessage");
 
 const handleWriteMessage = async (req, res) => {
-  if (!req?.body?.clickedUserId) {
+  if (!req?.body?.clickedUserId || !req?.body?.myUserId) {
     return res.status(400).json({ message: "This parameter is required." });
   }
   const user_id = req.body.myUserId;
@@ -18,7 +17,7 @@ const handleWriteMessage = async (req, res) => {
       { user_id: match_id, "user_matches.user_id": user_id },
       {
         $set: {
-          "user_matches.$.read": false,
+          "user_matches.$.notification": true,
         },
       }
     );

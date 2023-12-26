@@ -3,12 +3,12 @@ const URI = process.env.URI;
 
 const handleMessages = async (req, res) => {
   const client = new MongoClient(URI);
-  const { userId, correspondingUserId } = req.query;
+  const { fromUserId, toUserId } = req.query;
   try {
     await client.connect();
     const database = client.db("app-data");
     const messages = database.collection("messages");
-    const query = { from_user_id: userId, to_user_id: correspondingUserId };
+    const query = { from_user_id: fromUserId, to_user_id: toUserId };
     const returnedMessages = await messages.find(query).toArray();
 
     res.send(returnedMessages);
@@ -17,7 +17,7 @@ const handleMessages = async (req, res) => {
   }
 };
 
-const handleNativeMessages = async (req, res) => {
+const handleGetLastMessage = async (req, res) => {
   const client = new MongoClient(URI);
   const { userId, correspondingUserId } = req.query;
 
@@ -31,16 +31,16 @@ const handleNativeMessages = async (req, res) => {
         { from_user_id: correspondingUserId, to_user_id: userId },
       ],
     };
-    const returnedMessages = await messages
+    const lastMessage = await messages
       .find(query)
       .sort({ timestamp: -1 })
       .limit(1)
       .toArray();
 
-    res.send(returnedMessages);
+    res.send(lastMessage[0]);
   } finally {
     await client.close();
   }
 };
 
-module.exports = { handleMessages, handleNativeMessages };
+module.exports = { handleMessages, handleGetLastMessage };

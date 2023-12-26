@@ -4,6 +4,7 @@ const User = require("../model/User");
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password)
     return res
       .status(400)
@@ -47,14 +48,13 @@ const handleLogin = async (req, res) => {
         secure: true,
         maxAge: 24 * 60 * 60 * 1000,
       });
-      res.status(201).json({ token, userId: existingUser.user_id });
-
-      return;
+      return res.status(201).json({ token, userId: existingUser.user_id });
     }
 
-    if (!correctPassword) res.status(409).send("The password is incorrect.");
+    if (!correctPassword)
+      return res.status(409).send("The password is incorrect.");
 
-    res.status(400).send("Something went wrong.");
+    return res.status(400).send("Something went wrong.");
   } catch (error) {
     console.log(error);
   }
@@ -62,11 +62,12 @@ const handleLogin = async (req, res) => {
 
 const handleNativeAppLogin = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email, password);
-  if (!email || !password)
+
+  if (!email || !password) {
     return res
       .status(400)
       .json({ message: "Username and password are required." });
+  }
 
   try {
     const sanitizedEmail = email.toLowerCase();
@@ -105,8 +106,10 @@ const handleNativeAppLogin = async (req, res) => {
         .json({ token, userId: existingUser.user_id, jwt: refreshToken });
       return;
     }
-    if (!correctPassword) res.status(409).send("The password is incorrect.");
-    res.status(400).send("Something went wrong, Incorrect Password.");
+    if (!correctPassword) {
+      return res.status(409).send("The password is incorrect.");
+    }
+    return res.status(400).send("Something went wrong, Incorrect Password.");
   } catch (error) {
     console.log(error);
   }

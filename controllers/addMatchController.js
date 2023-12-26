@@ -1,4 +1,4 @@
-const ReadMessageSchema = require("../model/ReadMessage");
+const NotificationSchema = require("../model/Notification");
 
 const handleAddMatch = async (req, res) => {
   const { userId, matchedUserId, timestamp } = req.body;
@@ -7,16 +7,18 @@ const handleAddMatch = async (req, res) => {
     const query = { user_id: userId };
     const updateDocument = {
       $push: {
-        user_matches: { user_id: matchedUserId, read: true, timestamp },
+        user_matches: { user_id: matchedUserId, notification: false, timestamp },
       },
     };
-    const updatedUser = await ReadMessageSchema.findOneAndUpdate(
+    const options = { new: true };
+    const updatedUser = await NotificationSchema.findOneAndUpdate(
       query,
-      updateDocument
+      updateDocument,
+      options
     ).exec();
     res.send(updatedUser);
-  } catch (err){
-console.log(err)
+  } catch (err) {
+    console.log(err);
   }
 };
 

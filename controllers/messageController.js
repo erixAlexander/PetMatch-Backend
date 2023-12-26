@@ -4,6 +4,7 @@ const URI = process.env.URI;
 const handleMessage = async (req, res) => {
   const client = new MongoClient(URI);
   const message = req.body.message;
+  console.log("🚀 ~ file: messageController.js:7 ~ handleMessage ~ message:", message)
   try {
     await client.connect();
     const database = client.db("app-data");

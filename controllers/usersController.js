@@ -4,6 +4,7 @@ const URI = process.env.URI;
 const handleUsers = async (req, res) => {
   const client = new MongoClient(URI);
   const userIds = JSON.parse(req.query.userIds);
+  const userId = req.query.userId;
 
   try {
     await client.connect();
@@ -18,11 +19,26 @@ const handleUsers = async (req, res) => {
         },
       },
       {
+        $match: {
+          user_matches: {
+            $elemMatch: {
+              user_id: userId,
+            },
+          },
+        },
+      },
+      {
         $project: {
           user_id: 1,
           pet_name: 1,
           images: 1,
-          user_matches: 1,
+          user_matches: {
+            $filter: {
+              input: "$user_matches",
+              as: "user_match",
+              cond: { $eq: ["$$user_match.user_id", userId] },
+            },
+          },
         },
       },
     ];

@@ -2,22 +2,22 @@ const { MongoClient } = require("mongodb");
 const URI = process.env.URI;
 
 const handleReadMessage = async (req, res) => {
-  if (!req.body.userId) {
+  if (!req.body.userId || !req.body.match_id) {
     return res.status(400).json({ message: "This parameter is required." });
   }
+  const user_id = req.body.userId;
+  const match_id = req.body.match_id;
   const client = new MongoClient(URI);
   try {
     await client.connect();
     const database = client.db("app-data");
     const users = database.collection("users");
-    const user_id = req.body.userId;
-    const match_id = req.body.match_id;
 
     users.updateOne(
       { user_id, "user_matches.user_id": match_id },
       {
         $set: {
-          "user_matches.$.read": true,
+          "user_matches.$.notification": false,
         },
       }
     );

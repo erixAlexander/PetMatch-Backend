@@ -2,7 +2,7 @@ const onboarding = require("../model/Onboarding");
 
 const updateUserInfo = async (req, res) => {
   const formData = req.body.formData;
-  if (!req?.body?.formData?.user_id) {
+  if (!req.body.formData?.user_id) {
     return res.status(400).json({ message: "ID parameter is required." });
   }
 
@@ -61,7 +61,30 @@ const getUserInfo = async (req, res) => {
   }
 };
 
+const getUserMatches = async (req, res) => {
+  const reqUser = req.user;
+  const userId = req.query.userId;
+
+  if (!userId) {
+    return res.status(400).json({ message: "ID parameter is required." });
+  }
+  try {
+    const query = { user_id: userId };
+    const user = await onboarding.findOne(query);
+
+    if (reqUser !== user?.email) {
+      return res.status(403).json({ message: "User parameter is wrong." });
+    }
+
+    const { user_matches } = user._doc;
+    res.status(200).send(user_matches);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 module.exports = {
   getUserInfo,
   updateUserInfo,
+  getUserMatches,
 };

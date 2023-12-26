@@ -62,6 +62,10 @@ const handleLogin = async (req, res) => {
 
 const handleNativeAppLogin = async (req, res) => {
   const { email, password } = req.body;
+  console.log(
+    "🚀 ~ file: loginController.js:65 ~ handleNativeAppLogin ~ req.body:",
+    req.body
+  );
 
   if (!email || !password) {
     return res

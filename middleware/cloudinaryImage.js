@@ -14,8 +14,7 @@ const cloudinaryImage = async (req, res, next) => {
       maxImageWidth: 350,
       timeout: 120000,
     });
-    console.log("🚀 ~ file: cloudinaryImage.js:17 ~ cloudinaryImage ~ result:", result)
-    let cloudImage = { id: result.public_id, url: result.url };
+    let cloudImage = { id: result.public_id, url: result.secure_url };
 
     req.cloudinaryImage = cloudImage;
     next();

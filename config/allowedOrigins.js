@@ -6,7 +6,7 @@ const allowedOrigins = [
   "http://localhost:19000",
   "http://localhost:19006",
   "http://192.168.1.207:8081",
-  "https://petmatchlove.netlify.app",
+  "https://mypetmatch.netlify.app",
   "http://localhost:5173",
 ];
 //includes React and React native

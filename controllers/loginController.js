@@ -4,6 +4,7 @@ const User = require("../model/User");
 
 const handleLogin = async (req, res) => {
   const { email, password } = req.body;
+  console.log("🚀 ~ file: loginController.js:7 ~ handleLogin ~ email, password:", email, password)
 
   if (!email || !password)
     return res

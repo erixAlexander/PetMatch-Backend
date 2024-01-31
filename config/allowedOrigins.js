@@ -7,7 +7,7 @@ const allowedOrigins = [
   "http://localhost:19006",
   "http://192.168.1.207:8081",
   "https://petmatchlove.netlify.app",
-  "190.103.30.58",
+  "http://localhost:5173",
 ];
 //includes React and React native
 module.exports = allowedOrigins;

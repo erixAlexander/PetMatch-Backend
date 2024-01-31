@@ -55,7 +55,9 @@ const handleUpdateImages = async (req, res) => {
 
 const handleAddImages = async (req, res) => {
   const user_id = req?.body?.params?.user_id;
+  console.log("🚀 ~ handleAddImages ~ user_id:", user_id)
   const image = req?.cloudinaryImage;
+  console.log("🚀 ~ handleAddImages ~ image:", image)
   if (!user_id || !image) {
     return res.status(400).json({ message: "This parameter is required." });
   }

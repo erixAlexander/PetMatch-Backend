@@ -26,7 +26,10 @@ const profileUpdate = async (req, res) => {
       new: true,
     }).exec();
 
-    res.status(200).send(updatedUser);
+    const { hashed_password, refreshToken, ...userWithoutHash } =
+      updatedUser.toObject();
+
+    res.status(200).send(userWithoutHash);
   } catch (err) {
     console.log(err);
   }

@@ -34,7 +34,10 @@ const updateUserInfo = async (req, res) => {
     const updatedUser = await onboarding
       .findOneAndUpdate(query, updateDocument, { new: true })
       .exec();
-    res.status(200).send(updatedUser);
+
+    const { hashed_password, refreshToken, ...sanitizedUser } =
+      updatedUser._doc;
+    res.status(200).send(sanitizedUser);
   } catch (err) {
     console.log(err);
   }
@@ -54,7 +57,7 @@ const getUserInfo = async (req, res) => {
       return res.status(403).json({ message: "User parameter is wrong." });
     }
 
-    const { hashed_password, ...sanitizedUser } = user._doc;
+    const { hashed_password, refreshToken, ...sanitizedUser } = user._doc;
     res.status(200).send(sanitizedUser);
   } catch (err) {
     console.log(err);

@@ -2,10 +2,9 @@ const { MongoClient } = require("mongodb");
 const URI = process.env.URI;
 
 const handleUsers = async (req, res) => {
-  const client = new MongoClient(URI);
   const userIds = JSON.parse(req.query.userIds);
   const userId = req.query.userId;
-
+  const client = new MongoClient(URI);
   try {
     await client.connect();
     const database = client.db("app-data");
@@ -32,6 +31,7 @@ const handleUsers = async (req, res) => {
           user_id: 1,
           pet_name: 1,
           images: 1,
+          gender_identity: 1,
           user_matches: {
             $filter: {
               input: "$user_matches",

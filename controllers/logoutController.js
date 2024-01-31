@@ -2,6 +2,7 @@ const User = require("../model/User");
 
 const handleLogout = async (req, res) => {
   const cookies = req.cookies;
+  console.log("🚀 ~ file: logoutController.js:5 ~ handleLogout ~ cookies:", cookies)
   if (!cookies?.jwt) return res.sendStatus(204);
   const refreshToken = cookies.jwt;
 
